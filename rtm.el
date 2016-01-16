@@ -7,7 +7,7 @@
 ;; Author: Friedrich Delgado Friedrichs <frie...@nomaden.org>
 ;; Created: Oct 18 2009
 ;; Version: 0.1
-;; Package-Requires: ((cl-lib "0.5"))
+;; Package-Requires: ((cl-lib "1.0"))
 ;; Keywords: remember the milk productivity todo
 ;; URL: https://github.com/pmiddend/emacs-rtm
 
@@ -39,7 +39,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl-lib))
+(require 'cl-lib)
 (require 'url-http)
 (require 'url-util)
 (require 'xml)
