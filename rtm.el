@@ -149,15 +149,15 @@ API Kit"
 ;; recomendation: use only the authenticated aliases, and the long
 ;; names for those (rarely used) methods that are only signed
 (defalias 'def-rtm-si-sca 'def-rtm-signed-scalar-method)
-(defalias 'def-rtm-scalar 'def-rtm-authenticated-scalar-method)
-(defalias 'def-rtm-scalar! 'def-rtm-timeline-scalar-method)
+(defalias 'def-rtm-authenticated-scalar-method 'def-rtm-authenticated-scalar-method)
+(defalias 'def-rtm-authenticated-scalar-method! 'def-rtm-timeline-scalar-method)
 (defalias 'def-rtm-si-lis 'def-rtm-signed-list-method)
 (defalias 'def-rtm-list 'def-rtm-authenticated-list-method)
 (defalias 'def-rtm-list! 'def-rtm-timeline-list-method)
 
 (put 'def-rtm-si-sca 'lisp-indent-function 1)
-(put 'def-rtm-scalar 'lisp-indent-function 1)
-(put 'def-rtm-scalar! 'lisp-indent-function 1)
+(put 'def-rtm-authenticated-scalar-method 'lisp-indent-function 1)
+(put 'def-rtm-authenticated-scalar-method! 'lisp-indent-function 1)
 (put 'def-rtm-si-lis 'lisp-indent--function 1)
 (put 'def-rtm-list 'lisp-indent-function 1)
 (put 'def-rtm-list! 'lisp-indent-function 1)
@@ -234,26 +234,26 @@ API Kit"
 
 ;;;;;; contacts
 (def-rtm-timeline-list-method rtm-contacts-add rtm.contacts.add (contact) contact)
-(def-rtm-list! rtm-contacts-delete rtm.contacts.delete () contact_id)
-(def-rtm-list rtm-contacts-get-list rtm.contacts.getList (contacts))
+(def-rtm-timeline-list-method rtm-contacts-delete rtm.contacts.delete () contact_id)
+(def-rtm-authenticated-list-method rtm-contacts-get-list rtm.contacts.getList (contacts))
 
 ;;;;;; groups
-(def-rtm-list! rtm-groups-add rtm.groups.add () group)
-(def-rtm-list! rtm-groups-add-contact rtm.groups.addContact ()
+(def-rtm-timeline-list-method rtm-groups-add rtm.groups.add () group)
+(def-rtm-timeline-list-method rtm-groups-add-contact rtm.groups.addContact ()
                group_id contact_id)
-(def-rtm-list! rtm-groups-delete rtm.groups.delete () group_id)
-(def-rtm-list rtm-groups-get-list rtm.groups.getList ())
-(def-rtm-list! rtm-groups-remove-contact rtm.groups.removeContact ()
+(def-rtm-timeline-list-method rtm-groups-delete rtm.groups.delete () group_id)
+(def-rtm-authenticated-list-method rtm-groups-get-list rtm.groups.getList ())
+(def-rtm-timeline-list-method rtm-groups-remove-contact rtm.groups.removeContact ()
                group_id contact_id)
 
 ;;;;;; lists
-(def-rtm-list! rtm-lists-add rtm.lists.add ()
+(def-rtm-timeline-list-method rtm-lists-add rtm.lists.add ()
                name &optional filter)
-(def-rtm-list! rtm-lists-archive rtm.lists.archive ()
+(def-rtm-timeline-list-method rtm-lists-archive rtm.lists.archive ()
                list_id)
-(def-rtm-list! rtm-lists-delete rtm.lists.delete ()
+(def-rtm-timeline-list-method rtm-lists-delete rtm.lists.delete ()
                list_id)
-(def-rtm-list rtm-lists-get-list rtm.lists.getList (lists))
+(def-rtm-authenticated-list-method rtm-lists-get-list rtm.lists.getList (lists))
 ;; example response (after result function):
 ;; ((list
 ;;   ((id . "7781815")
@@ -301,15 +301,15 @@ API Kit"
 ;;    (position . "1")
 ;;    (smart . "0")
 ;;    (sort_order . "0"))))
-(def-rtm-list! rtm-lists-set-default-list rtm.lists.setDefaultList ()
+(def-rtm-timeline-list-method rtm-lists-set-default-list rtm.lists.setDefaultList ()
                list_id)
-(def-rtm-list! rtm-lists-set-name rtm.lists.setName ()
+(def-rtm-timeline-list-method rtm-lists-set-name rtm.lists.setName ()
                list_id name)
-(def-rtm-list! rtm-lists-unarchive rtm.lists.unarchive ()
+(def-rtm-timeline-list-method rtm-lists-unarchive rtm.lists.unarchive ()
                list_id)
 
 ;;;;;; locations
-(def-rtm-list rtm-locations-get-list rtm.locations.getList (locations))
+(def-rtm-authenticated-list-method rtm-locations-get-list rtm.locations.getList (locations))
 
 ;;;;;; reflection
 (def-rtm-signed-list-method rtm-reflection-get-methods rtm.reflection.getMethods
@@ -318,22 +318,22 @@ API Kit"
                               rtm.reflection.getMethodInfo () method_name)
 
 ;;;;;; settings
-(def-rtm-list rtm-settings-get-list rtm.settings.getList (settings))
+(def-rtm-authenticated-list-method rtm-settings-get-list rtm.settings.getList (settings))
 
 ;;;;;; tasks
-(def-rtm-list! rtm-tasks-add rtm.tasks.add ()
+(def-rtm-timeline-list-method rtm-tasks-add rtm.tasks.add ()
                name &optional parse list_id)
 
-(def-rtm-list! rtm-tasks-add-tags rtm.tasks.addTags ()
+(def-rtm-timeline-list-method rtm-tasks-add-tags rtm.tasks.addTags ()
                list_id taskseries_id task_id tags)
 
-(def-rtm-list! rtm-tasks-complete rtm.tasks.complete ()
+(def-rtm-timeline-list-method rtm-tasks-complete rtm.tasks.complete ()
                list_id taskseries_id task_id)
 
-(def-rtm-list! rtm-tasks-delete rtm.tasks.delete ()
+(def-rtm-timeline-list-method rtm-tasks-delete rtm.tasks.delete ()
                list_id taskseries_id task_id)
 
-(def-rtm-list rtm-tasks-get-list rtm.tasks.getList (tasks)
+(def-rtm-authenticated-list-method rtm-tasks-get-list rtm.tasks.getList (tasks)
               &optional list_id filter last_sync)
 ;; example response (after result function):
 ;; ((list
@@ -368,67 +368,67 @@ API Kit"
 ;;  (list
 ;;   ((id . "7781820"))))
 
-(def-rtm-list! rtm-tasks-move-priority rtm.tasks.movePriority ()
+(def-rtm-timeline-list-method rtm-tasks-move-priority rtm.tasks.movePriority ()
                list_id taskseries_id task_id direction)
 
-(def-rtm-list! rtm-tasks-move-to rtm.tasks.moveTo ()
+(def-rtm-timeline-list-method rtm-tasks-move-to rtm.tasks.moveTo ()
                from_list_id to_list_id taskseries_id task_id)
 
-(def-rtm-list! rtm-tasks-postpone rtm.tasks.postpone ()
+(def-rtm-timeline-list-method rtm-tasks-postpone rtm.tasks.postpone ()
                list_id taskseries_id task_id)
 
-(def-rtm-list! rtm-tasks-remove-tags rtm.tasks.removeTags ()
+(def-rtm-timeline-list-method rtm-tasks-remove-tags rtm.tasks.removeTags ()
                list_id taskseries_id task_id tags)
 
-(def-rtm-list! rtm-tasks-set-due-date rtm.tasks.setDueDate ()
+(def-rtm-timeline-list-method rtm-tasks-set-due-date rtm.tasks.setDueDate ()
                list_id taskseries_id task_id &optional due has_due_time parse)
 
-(def-rtm-list! rtm-tasks-set-estimate rtm.tasks.setEstimate ()
+(def-rtm-timeline-list-method rtm-tasks-set-estimate rtm.tasks.setEstimate ()
                list_id taskseries_id task_id &optional estimate)
 
-(def-rtm-list! rtm-tasks-set-location rtm.tasks.setLocation ()
+(def-rtm-timeline-list-method rtm-tasks-set-location rtm.tasks.setLocation ()
                list_id taskseries_id task_id &optional location_id)
 
-(def-rtm-list! rtm-tasks-set-name rtm.tasks.setName ()
+(def-rtm-timeline-list-method rtm-tasks-set-name rtm.tasks.setName ()
                list_id taskseries_id task_id name)
 
-(def-rtm-list! rtm-tasks-set-priority rtm.tasks.setPriority ()
+(def-rtm-timeline-list-method rtm-tasks-set-priority rtm.tasks.setPriority ()
                list_id taskseries_id task_id &optional priority)
 
-(def-rtm-list! rtm-tasks-set-recurrence rtm.tasks.setRecurrence ()
+(def-rtm-timeline-list-method rtm-tasks-set-recurrence rtm.tasks.setRecurrence ()
                list_id taskseries_id task_id &optional repeat)
 
-(def-rtm-list! rtm-tasks-set-tags rtm.tasks.setTags ()
+(def-rtm-timeline-list-method rtm-tasks-set-tags rtm.tasks.setTags ()
                list_id taskseries_id task_id &optional tags)
 
-(def-rtm-list! rtm-tasks-set-url rtm.tasks.setURL ()
+(def-rtm-timeline-list-method rtm-tasks-set-url rtm.tasks.setURL ()
                list_id taskseries_id task_id &optional url)
 
-(def-rtm-list! rtm-tasks-uncomplete rtm.tasks.uncomplete ()
+(def-rtm-timeline-list-method rtm-tasks-uncomplete rtm.tasks.uncomplete ()
                list_id taskseries_id task_id)
 
 ;;;;;; tasks.notes
-(def-rtm-list! rtm-tasks-notes-add rtm.tasks.notes.add ()
+(def-rtm-timeline-list-method rtm-tasks-notes-add rtm.tasks.notes.add ()
                list_id taskseries_id task_id note_title note_text)
 
-(def-rtm-list! rtm-tasks-notes-delete rtm.tasks.notes.delete ()
+(def-rtm-timeline-list-method rtm-tasks-notes-delete rtm.tasks.notes.delete ()
                note_id)
 
-(def-rtm-list! rtm-tasks-notes-edit rtm.tasks.notes.edit ()
+(def-rtm-timeline-list-method rtm-tasks-notes-edit rtm.tasks.notes.edit ()
                note_id note_title note_text)
 
 ;;;;;; test
 (defun rtm-test-echo ()
   (rtm-call-unsigned 'rtm.test.echo))
 
-(def-rtm-list rtm-test-login rtm.test.login ())
+(def-rtm-authenticated-list-method rtm-test-login rtm.test.login ())
 
 ;;;;;; time
 (def-rtm-signed-list-method rtm-time-convert rtm.time.convert ()
                             to_timezone &optional from_timezone time)
 
 ;;;;;; timelines
-(def-rtm-scalar rtm-timelines-create rtm.timelines.create (timeline))
+(def-rtm-authenticated-scalar-method rtm-timelines-create rtm.timelines.create (timeline))
 (defun rtm-timeline ()
   (unless rtm-current-timeline
     (progn
@@ -439,7 +439,7 @@ API Kit"
 (def-rtm-signed-list-method rtm-timezones-get-list rtm.timezones.getList ())
 
 ;;;;;; transactions
-(def-rtm-list! rtm-transactions-undo rtm.transactions.undo () transaction_id)
+(def-rtm-timeline-list-method rtm-transactions-undo rtm.transactions.undo () transaction_id)
 
 ;;;; User authentication
 
