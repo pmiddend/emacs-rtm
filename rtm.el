@@ -155,6 +155,8 @@ API Kit"
 (defalias 'def-rtm-list 'def-rtm-authenticated-list-method)
 (defalias 'def-rtm-list! 'def-rtm-timeline-list-method)
 
+;; TODO: I removed the usages of the aliases above - do I have to rewrite
+;; these calls as well?
 (put 'def-rtm-si-sca 'lisp-indent-function 1)
 (put 'def-rtm-authenticated-scalar-method 'lisp-indent-function 1)
 (put 'def-rtm-authenticated-scalar-method! 'lisp-indent-function 1)
