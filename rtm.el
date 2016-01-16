@@ -233,9 +233,9 @@ API Kit"
 ;; (perms nil "delete") (user (... ... ...))))
 
 ;;;;;; contacts
-(def-rtm-list! rtm-contacts-add rtm.contacts.add (contact) contact)
-(def-rtm-list! rtm-contacts-delete rtm.contacts.delete () contact_id)
-(def-rtm-list rtm-contacts-get-list rtm.contacts.getList (contacts))
+;(def-rtm-list! rtm-contacts-add rtm.contacts.add (contact) contact)
+;(def-rtm-list! rtm-contacts-delete rtm.contacts.delete () contact_id)
+;(def-rtm-list rtm-contacts-get-list rtm.contacts.getList (contacts))
 
 ;;;;;; groups
 (def-rtm-list! rtm-groups-add rtm.groups.add () group)
