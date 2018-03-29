@@ -149,7 +149,6 @@ API Kit"
 ;; recomendation: use only the authenticated aliases, and the long
 ;; names for those (rarely used) methods that are only signed
 (defalias 'def-rtm-si-sca 'def-rtm-signed-scalar-method)
-(defalias 'def-rtm-authenticated-scalar-method 'def-rtm-authenticated-scalar-method)
 (defalias 'def-rtm-authenticated-scalar-method! 'def-rtm-timeline-scalar-method)
 (defalias 'def-rtm-si-lis 'def-rtm-signed-list-method)
 (defalias 'def-rtm-list 'def-rtm-authenticated-list-method)
